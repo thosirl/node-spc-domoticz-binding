@@ -80,6 +80,14 @@ Delete a variable
         method: 'PUT'
     }
     var req = hc2_http_client.request(options, function(res) {
+        if (res.statusCode == 400) {  /* Create variable if not found */
+                console.log('400 Error, waiting and retrying');
+                setTimeout(function(){
+                        setDomoticzVariable(globalVariableHC2, value)
+                }, 1000);
+                req.abort();
+                return;
+        }
         
         var reply = '';
         res.on('data', function(chunk) {
@@ -119,6 +127,15 @@ function createDomoticzVariable(globalVariableHC2, value){
         method: 'POST'
     }
     var req = hc2_http_client.request(options, function(res) {
+        if (res.statusCode == 400) {  /* Create variable if not found */
+                console.log('400 Error, aborting, and retrying?');
+                setTimeout(function(){
+                        createDomoticzVariable(globalVariableHC2, value)
+                }, 1000);
+                req.abort();
+		return;
+        }
+
         var reply = '';
         res.on('data', function(chunk) {
             reply += chunk;
