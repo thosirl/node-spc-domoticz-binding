@@ -275,6 +275,7 @@ function manageSiaEvent(message){
         var sia = data.data.sia;
         sia_code    = sia.sia_code;
         sia_address = sia.sia_address;
+	sia_zone_name = sia.description;
 
         // Update status dependent on type of SIA event
         switch (sia_code){
@@ -312,7 +313,8 @@ function manageSiaEvent(message){
                     zone: [
                         {
                             id: sia_address,
-                            input: value
+                            input: value,
+			    zone_name: sia_zone_name
                         }
                     ]
                 }
