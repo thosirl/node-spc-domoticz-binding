@@ -158,7 +158,13 @@ function handleSpcAreaData(data) {
         }
         console.log(area_mode)
 
-        var modeVariableHC2 = 'G_SPC_AREA_MODE_' + area.id;
+        if (!config.naming) {
+		var modeVariableHC2 = 'G_SPC_AREA_MODE_' + area.id;
+	} else if (config.naming) {
+		// Special characters need to be replaced, ideally have full list/array of chars here
+		var area_name = area.name.replace(/ /g,"_").replace("/","_");
+	        var modeVariableHC2 = 'G_SPC_AREA_' + area_name;
+	}
 
         setDomoticzVariable(modeVariableHC2, area_mode);
     });
@@ -197,7 +203,14 @@ function handleSpcZoneData(data) {
                     zone_input = "offline";
                     break;
             }
-            var inputVariableHC2 = 'G_SPC_ZONE_INPUT_' + zone.id;
+
+        if (!config.naming) {
+	       	var inputVariableHC2 = 'G_SPC_ZONE_INPUT_' + zone.id;
+        } else if (config.naming) {
+                // Special characters need to be replaced, ideally have full list/array of chars here
+		var zone_name = zone.zone_name.replace(/ /g,"_").replace("/","_");
+		var inputVariableHC2 = 'G_SPC_ZONE_INPUT_' + zone_name;
+        }
 
             setDomoticzVariable(inputVariableHC2, zone_input);
         }
@@ -230,8 +243,14 @@ function handleSpcZoneData(data) {
                     zone_status = "trouble";
                     break;
             }
+        if (!config.naming) {
+            	var statusVariableHC2 = 'G_SPC_ZONE_STATUS_' + zone.id;
+        } else if (config.naming) {
+                // Special characters need to be replaced, ideally have full list/array of chars here
+		var zone_name = zone.zone_name.replace(/ /g,"_").replace("/","_");
+		var statusVariableHC2 = 'G_SPC_ZONE_STATUS_' + zone_name;
 
-            var statusVariableHC2 = 'G_SPC_ZONE_STATUS_' + zone.id;
+        }
 
             setDomoticzVariable(statusVariableHC2, zone_status);
         }
