@@ -74,7 +74,7 @@ Delete a variable
 
  var options = {
         hostname: config.domo_host,
-        port: 8080,
+        port: config.domo_port,
         path: '/json.htm?type=command&param=updateuservariable&vname=' + globalVariableHC2 + '&vtype=2&vvalue=' + value,
         /*auth: config.hc2_user + ':' + config.hc2_password + '@',*/
         method: 'PUT'
@@ -113,7 +113,7 @@ function createDomoticzVariable(globalVariableHC2, value){
 
     var options = {
         hostname: config.domo_host,
-        port: 8080,
+        port: config.domo_port,
         path: '/json.htm?type=command&param=saveuservariable&vname=' + globalVariableHC2 + '&vtype=2&vvalue=' + value,
         /*auth: config.hc2_user + ':' + config.hc2_password + '@',*/
         method: 'POST'
